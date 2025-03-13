@@ -8,7 +8,7 @@ the file path if running the code.
 
 The `ai_model_predictions` file can be found at [USPTO Artificial Intelligence Patent Dataset](https://www.uspto.gov/ip-policy/economic-research/research-datasets/artificial-intelligence-patent-dataset).
 
-All the following can be found and downloaded for free as .tsv files on [PatentsView].(https://patentsview.org/download/data-download-tables)
+All the following can be found and downloaded for free as .tsv files on [PatentsView](https://patentsview.org/download/data-download-tables).
 - `g_assignee_disambiguated.tsv`
 - `g_application.tsv`
 - `g_location_disambiguated.tsv`
