@@ -10,7 +10,7 @@ from shapely.geometry import Polygon
 # ---------------------------------------------------------------------------------- #
 
 # Load datasets
-df_citation_distance = pd.read_csv('/Users/jacksonvanvooren/Desktop/df_citation_w_distance')
+df_citation_distance = pd.read_csv('/Users/jacksonvanvooren/Desktop/df_citation_w_distance.csv')
 df_external_distance = pd.read_csv('/Users/jacksonvanvooren/Desktop/df_external_distance.csv')
 
 # ---------------------------------------------------------------------------------- #
