@@ -9,7 +9,7 @@ from shapely.geometry import Point
 from scipy.stats import gaussian_kde
 
 # ---------------------------------------------------------------------------------- #
-df_citation_distance = pd.read_csv("df_citation_w_distance.csv")
+df_citation_distance = pd.read_csv('/Users/jacksonvanvooren/Desktop/df_citation_w_distance.csv')
 
 # Show share of AI patents (number AI/total) over time
 ai_share_by_year = df_citation_distance.groupby('pub_year').agg(
