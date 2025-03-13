@@ -155,4 +155,6 @@ df_citations_distance.drop(columns=['patent_id_x'], inplace=True)
 # Export to CSV
 # This dataset has one row per unique patent identifier, with counts of citations and mean citing to cited distances
 # I've uploaded df_citation_w_distance to the Github
+# I unforunately forgot to add the .csv so it'll likely open in a text editor, but it can still be read as a CSV in Python
+# It took > 5 hours to run the above code and since this worked I didn't want to rerun it and risk my kernel crashing
 df_citations_distance.to_csv('df_citation_w_distance', index=False)
