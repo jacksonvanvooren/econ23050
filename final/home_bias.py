@@ -163,6 +163,8 @@ spillover_bias_data = []
 for state in us_states:
     spillover_bias_data.append({'state': state, 'index': spillover_index(state)})
 spillover_bias_df = pd.DataFrame(spillover_bias_data)
+# Export to CSV to use in regressions.py
+spillover_bias_df.to_csv("spillover_bias_df.csv")
 
 # Develop map using geopandas
 # Load US shapefile for states
