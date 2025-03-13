@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 # ---------------------------------------------------------------------------------- #
 
-df_citation_distance = pd.read_csv('/Users/jacksonvanvooren/Desktop/df_citation_w_distance')
+df_citation_distance = pd.read_csv('/Users/jacksonvanvooren/Desktop/df_citation_w_distance.csv')
 
 # Calculate distribution of patents for AI vs. non-AI
 max_citations = 20
