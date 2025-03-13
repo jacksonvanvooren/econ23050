@@ -17,7 +17,7 @@ All the following can be found and downloaded for free as .tsv files on [Patents
 ### Overview
 
 Each .py file corresponds to a section or sections of the paper.
-- `prepare_datasets.py` involves all preprocessing and merges of different data sources
+- `prepare_datasets.py` involves all preprocessing and merges of different data sources.
 - `intro_methods.py` includes code for graphs and charts in the intro and methodology sections. These show trends that have been empirically observed in the literature, and I briefly affirm these patterns with my datasets.
 - `gini.py` calculates Gini coefficients across countries and time.
 - `home_bias.py` develops the maps of spillover effects and includes distance analyses of patents and their citations.
