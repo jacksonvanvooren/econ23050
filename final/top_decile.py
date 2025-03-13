@@ -22,6 +22,29 @@ top_decile_cutoffs = df_filtered.groupby('pub_year')['external_citations'].quant
 df_filtered['top_decile'] = df_filtered.apply(
     lambda row: 1 if row['external_citations'] >= top_decile_cutoffs[row['pub_year']] else 0, axis=1)
 
+# Find share of AI patents in the top decile
+# Group by year and calculate the total number of top decile patents and the number of top decile AI patents
+top_decile_by_year = df_citation_distance[df_citation_distance['top_decile'] == 1] \
+    .groupby('pub_year').agg(
+        total_top_decile=('top_decile', 'size'),  # Total top decile patents
+        ai_top_decile=('predict86_any_ai', lambda x: (x == 1).sum())  # AI patents in top decile
+    )
+
+# Calculate the share of AI patents in the top decile for each year
+top_decile_by_year['ai_share'] = top_decile_by_year['ai_top_decile'] / top_decile_by_year['total_top_decile']
+
+# Plot
+plt.figure(figsize=(12, 6))
+plt.plot(top_decile_by_year.index, top_decile_by_year['ai_share'], marker='o', color='b')
+
+plt.xlabel('Year')
+plt.ylabel('Share of AI Patents in Top Decile')
+plt.title('Share of AI Patents in Top Citation Decile by Year')
+plt.grid(True)
+
+plt.tight_layout()
+plt.show()
+
 # ---------------------------------------------------------------------------------- #
 
 # Create controls at the state level
@@ -105,3 +128,42 @@ model_3 = sm.Logit(y, X_3).fit()
 print(model_1.summary())
 print(model_2.summary())
 print(model_3.summary())
+
+# ---------------------------------------------------------------------------------- #
+# Top 5 most represented states in the top decile of external citations
+
+# Filter for U.S. patents with at least one citation and top decile flag
+state_top_decile_counts = df_filtered[df_filtered['top_decile'] == 1] \
+    .groupby('disambig_state')['top_decile'].count() \
+    .sort_values(ascending=False)
+
+# Select the top 4 states with the most patents in the top decile
+top_5_states = state_top_decile_counts.head(5).index
+
+# Filter data to include only top 4 states
+df_top_5_states = df_filtered[df_filtered['disambig_state'].isin(top_5_states)]
+
+# Group by publication year and state, and count the number of patents in the top decile for these states
+state_decile_counts_top_5 = df_top_5_states[df_top_5_states['top_decile'] == 1] \
+    .groupby(['pub_year', 'disambig_state'])['top_decile'].count() \
+    .unstack(fill_value=0)
+
+# Group by year and get the total number of top decile patents in the US
+total_top_decile_patents_per_year = df_filtered[df_filtered['top_decile'] == 1] \
+    .groupby('pub_year').size()
+
+# Normalize the data into a proportion
+state_decile_counts_top_5_norm = state_decile_counts_top_5.div(total_top_decile_patents_per_year, axis=0)
+
+# Plot
+plt.figure(figsize=(12, 6))
+state_decile_counts_top_5_norm.plot(kind='bar', stacked=True, figsize=(12, 8))
+plt.xlabel('Year')
+plt.ylabel('Proportion of Top Decile Patents')
+plt.title('Top 5 States Represented in the Top Citation Decile (Normalized by Total Top Decile Patents)')
+plt.xticks(rotation=45)
+plt.grid(True)
+
+# Show the plot
+plt.tight_layout()
+plt.show()
